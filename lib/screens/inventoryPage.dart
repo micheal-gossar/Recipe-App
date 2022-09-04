@@ -32,7 +32,7 @@ class _inventoryPage extends State<inventoryPage> {
               });
             },
             child: Text(
-              'Get API Recipe',
+              'Enter New Item!',
               style: TextStyle(fontSize: 20.0),
             ),
           ),
