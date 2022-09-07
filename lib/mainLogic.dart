@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "screens/mainPage.dart";
 import "screens/inventoryPage.dart";
+import "screens/loginScreen.dart";
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({super.key});
@@ -16,10 +17,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     inventoryPage(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    LoginPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -50,7 +48,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.login),
             label: 'Settings',
             backgroundColor: Colors.pink,
           ),
