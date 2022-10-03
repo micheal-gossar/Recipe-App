@@ -3,6 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'Auth/fireAuth.dart';
 import 'Auth/validate.dart';
+import "../firebase_options.dart";
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,7 +26,13 @@ class _LoginPageState extends State<LoginPage> {
   bool _isProcessing = false;
 
   Future<FirebaseApp> _initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    FirebaseApp firebaseApp = await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: 'AIzaSyBy1WTg33B45GKyU1o6imYrqhA1eI5RpB0',
+          appId: '1:765044191222:web:71f9798fee13a9dea321d7',
+          messagingSenderId: '765044191222',
+          projectId: 'recipe-45b98',
+        ));
 
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -136,12 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                                       });
 
                                       if (user != null) {
-                                        Navigator.of(context)
-                                            .pushReplacement(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProfilePage(user: user),
-                                          ),
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>ProfilePage(user: user)),
                                         );
                                       }
                                     }
@@ -170,7 +176,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ],
-                          )
+                          ),
+
                         ],
                       ),
                     )
@@ -192,6 +199,7 @@ class _LoginPageState extends State<LoginPage> {
 class ProfilePage extends StatefulWidget {
   final User user;
 
+
   const ProfilePage({required this.user});
 
   @override
@@ -204,10 +212,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
   late User _currentUser;
 
+  var profileDetails = new Map();
+
   @override
   void initState() {
     _currentUser = widget.user;
     super.initState();
+  }
+  void updateDetails() {
+    profileDetails["DisplayName"] = _currentUser.displayName;
+    profileDetails["Email"] = _currentUser.email;
+    profileDetails["EmailVerified"] = _currentUser.emailVerified;
+
   }
 
   @override
@@ -459,3 +475,4 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
